@@ -73,7 +73,7 @@ model_quant: true
 model_quant_use_transformer_engine: true # only set this to true if you are using Transformer Engine (ckpt) for NVFP4; otherwise, set it to false (4o6)
 model_quant_te_inference_only: true
 model_quant_te_low_precision_weights: true
-model_quant_te_fallback_to_fouroversix: false # only set this to false if you are using FourOverSix (ckpt) for NVFP4; otherwise, set it to true (TE)
+model_quant_te_fallback_to_fouroversix: true # only set this to false if you are using FourOverSix (ckpt) for NVFP4; otherwise, set it to true (TE)
 model_quant_scale_rule: mse
 model_quant_activation_scale_rule: mse
 model_quant_weight_scale_rule: mse
