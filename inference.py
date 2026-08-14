@@ -293,11 +293,8 @@ torch.set_grad_enabled(False)
 pipeline = CausalDiffusionInferencePipeline(config, device=device)
 
 # --------------------------- LoRA support (optional) ---------------------------
-from utils.lora_utils import configure_lora_for_model
-import peft
-
 merge_lora = bool(getattr(config, "merge_lora", False))
-has_lora_adapter = bool(getattr(config, "adapter", None) and configure_lora_for_model is not None)
+has_lora_adapter = bool(getattr(config, "adapter", None))
 if has_lora_adapter and (
     bool(getattr(config, "model_quant", False))
     or bool(getattr(config, "fp8_quant", False))
@@ -397,6 +394,9 @@ if getattr(config, "model_quant", False) and not merge_lora and not loaded_prequ
     )
 
 if has_lora_adapter:
+    # Lazy imports: LoRA support is optional and pulls in peft.
+    from utils.lora_utils import configure_lora_for_model
+    import peft
     if local_rank == 0:
         print(f"LoRA enabled with config: {config.adapter}")
         print("Applying LoRA to generator (inference)...")
