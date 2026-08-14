@@ -6,8 +6,6 @@ import torch
 import random
 import json
 from pathlib import Path
-from PIL import Image
-import os
 import subprocess
 import time
 import warnings
