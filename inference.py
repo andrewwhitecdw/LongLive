@@ -587,14 +587,14 @@ def encode(self, videos: torch.Tensor) -> torch.Tensor:
 
 
 for i, batch_data in tqdm(enumerate(dataloader), disable=(local_rank != 0)):
-    idx = batch_data['idx'].item()
-
     # For DataLoader batch_size=1, the batch_data is already a single item, but in a batch container
     # Unpack the batch data for convenience
     if isinstance(batch_data, dict):
         batch = batch_data
     elif isinstance(batch_data, list):
         batch = batch_data[0]  # First (and only) item in the batch
+
+    idx = batch['idx'].item()
 
     all_video = []
 
