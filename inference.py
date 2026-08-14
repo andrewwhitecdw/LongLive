@@ -94,7 +94,7 @@ def save_prompts_to_txt(prompts_for_sample, prompt_txt_path: str, is_main_proces
             print(f"Warning: failed to save prompts to {prompt_txt_path}: {e}")
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--config_path", type=str, help="Path to the config file")
+parser.add_argument("--config_path", type=str, required=True, help="Path to the config file")
 te_quant_group = parser.add_mutually_exclusive_group()
 te_quant_group.add_argument(
     "--use_te_quant",
