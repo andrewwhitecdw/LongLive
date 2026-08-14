@@ -596,8 +596,6 @@ for i, batch_data in tqdm(enumerate(dataloader), disable=(local_rank != 0)):
     elif isinstance(batch_data, list):
         batch = batch_data[0]  # First (and only) item in the batch
 
-    all_video = []
-
     # MultiTextConcatDataset + eval_collate_fn: prompts[0] is List[str].
     block_prompts = list(batch['prompts'][0])
     prompt = block_prompts[0]  # for filename
@@ -644,10 +642,9 @@ for i, batch_data in tqdm(enumerate(dataloader), disable=(local_rank != 0)):
 
     if not save_latents_only:
         current_video = rearrange(generated, 'b t c h w -> b t h w c').cpu()
-        all_video.append(current_video)
 
         # Final output video
-        video = 255.0 * torch.cat(all_video, dim=1)
+        video = 255.0 * current_video
 
         # Clear VAE cache
         pipeline.vae.model.clear_cache()
