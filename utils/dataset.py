@@ -131,6 +131,10 @@ class MultiTextConcatDataset(Dataset):
         caption_field: str = "caption",
         deterministic: bool = False,
     ):
+        if num_blocks <= 0:
+            raise ValueError(
+                f"num_blocks must be a positive integer, got {num_blocks}"
+            )
         self.num_blocks = num_blocks
         self.chunks_per_shot = chunks_per_shot
         self.scene_cut_prefix = scene_cut_prefix
